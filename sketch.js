@@ -1,53 +1,83 @@
 //Bunny power
 
 let superpower = [{
-  ability: "Stretch",
-  power: 3
-}, {
-  ability: "Prediction",
-  power: 6
-}, {
-  ability: "Power Enhancer",
-  power: 7
-}, {
-  ability: "Pressurizer",
-  power: 5
-}, {
-  ability: "Healing Gel Manipulation",
-  power: 4
-}, {
-  ability: "Fluid Cutter",
-  power: 8,
-}, {
-  ability: "Aura Manipulation",
-  power: 10
-}, {
-  ability: "Dimension Traveling",
+  ability: "Heal",
   power: 1
 }, {
   ability: "Teleportation",
   power: 2
 }, {
-  ability: "Weather Control",
+  ability: "Wind",
+  power: 3
+}, {
+  ability: "Water",
+  power: 4
+}, {
+  ability: "Earth",
+  power: 5
+}, {
+  ability: "Fire",
+  power: 6
+}, {
+  ability: "Electricity",
+  power: 7
+}, {
+  ability: "Superstrength",
+  power: 8
+}, {
+  ability: "Spirit",
   power: 9
+}, {
+  ability: "Psychic",
+  power: 10
 }];
 
 let randomIndex;
 let animating = false;
+let ability = [];
+let counter = 0;
+let button;
 
+function preload(){
+  for(let i = 0; i <= 9; i++)
+  {
+    ability[i] = loadImage(`assets/power_${i}.jpg`);
+  }
+}
 
 function setup() {
   createCanvas(500, 500);
-  background(200);
+  background(82, 77, 255);
+
   textSize(40);
   textAlign(CENTER);
+  imageMode(CENTER);
+  frameRate(5);
   text("Click to Randomize", width/2, height/2);
+
+  button = createButton("Superpower Randomizer");
+  button.position(width/4, height);
+  button.mousePressed(buttonPressed);
+  button.class("randomizerButton");
+
+  console.log(ability);
 
 }
 
 function draw() {
   if (animating == true) {
-    ellipse(random(width), random(height), random(50, 200));
+    clear();
+    image(ability[counter], width/2, height/2);
+
+    if(counter < ability.length - 1)
+    {
+      counter++;
+    }
+    else
+    {
+      counter = 0;
+    }
+    //ellipse(random(width), random(height), random(50, 200));
   }
 }
 
@@ -56,9 +86,12 @@ function randomizer() {
   animating = false;
   if (superpower[0]) {
 
-    background(random(200, 255));
+    //background(random(200, 255));
+
+    clear();
     randomIndex = int(random(superpower.length));
-    text(`${superpower[randomIndex].ability}: \nPower Level: ${superpower[randomIndex].power}`, width/2, height/2 );
+    text(`${superpower[randomIndex].ability}: \nPower Level: ${superpower[randomIndex].power}`, width/2, height - 80 );
+    image(random(ability), width/2, (height/2) - 10);
     superpower.splice(randomIndex, 1);
   } else {
     background(random(200, 255));
@@ -80,7 +113,7 @@ function randomizer() {
 //
 // }
 
-function mousePressed() {
+function buttonPressed() {
 
   animating = true;
   setTimeout(randomizer, 2000);
