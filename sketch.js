@@ -1,46 +1,51 @@
 //Bunny power
 
-let superpower = [{
-  ability: "Heal",
-  power: 1
-}, {
-  ability: "Teleportation",
-  power: 2
-}, {
-  ability: "Wind",
-  power: 3
-}, {
-  ability: "Water",
-  power: 4
-}, {
-  ability: "Earth",
-  power: 5
-}, {
-  ability: "Fire",
-  power: 6
-}, {
-  ability: "Electricity",
-  power: 7
-}, {
-  ability: "Superstrength",
-  power: 8
-}, {
-  ability: "Spirit",
-  power: 9
-}, {
-  ability: "Psychic",
-  power: 10
-}];
+// let superpower = [{
+//   ability: "Heal",
+//   power: 1
+// }, {
+//   ability: "Teleportation",
+//   power: 2
+// }, {
+//   ability: "Wind",
+//   power: 3
+// }, {
+//   ability: "Water",
+//   power: 4
+// }, {
+//   ability: "Earth",
+//   power: 5
+// }, {
+//   ability: "Fire",
+//   power: 6
+// }, {
+//   ability: "Electricity",
+//   power: 7
+// }, {
+//   ability: "Superstrength",
+//   power: 8
+// }, {
+//   ability: "Spirit",
+//   power: 9
+// }, {
+//   ability: "Psychic",
+//   power: 10
+// }];
+
+let superpower = [];
 
 let randomIndex;
 let animating = false;
 let ability = [];
 let counter = 0;
-let button;
+let startRandomiozerButton;
+let addMoreButton;
+let cnv;
+let nameInputs = [];
+let firstTime = true;
 
-function preload(){
-  for(let i = 0; i <= 9; i++)
-  {
+function preload() {
+  for (let i = 0; i <= 9; i++) {
     ability[i] = loadImage(`assets/power_${i}.jpg`);
   }
 }
@@ -53,12 +58,15 @@ function setup() {
   textAlign(CENTER);
   imageMode(CENTER);
   frameRate(5);
-  text("Click to Randomize", width/2, height/2);
+  text("Click to Randomize", width / 2, height / 2);
 
-  button = createButton("Superpower Randomizer");
-  button.position(width/4, height);
-  button.mousePressed(buttonPressed);
-  button.class("randomizerButton");
+  //button = createButton("Superpower Randomizer");
+  //button.position(width / 4, height); //This puts the button at the bottom instead of the top
+  startRandomiozerButton = select('#randButton');
+  startRandomiozerButton.mousePressed(buttonPressed);
+
+  addMoreButton = select('#addMoreButton');
+  addMoreButton .mousePressed(addAnotherInput);
 
   console.log(ability);
 
@@ -67,17 +75,21 @@ function setup() {
 function draw() {
   if (animating == true) {
     clear();
-    image(ability[counter], width/2, height/2);
+    image(ability[counter], width / 2, height / 2);
 
-    if(counter < ability.length - 1)
-    {
+    if (counter < ability.length - 1) {
       counter++;
-    }
-    else
-    {
+    } else {
       counter = 0;
     }
     //ellipse(random(width), random(height), random(50, 200));
+  }
+}
+
+function addAnotherInput() {
+  for (let i = 0; i < 3; i++) {
+    nameInputs.push(createInput());
+    nameInputs[nameInputs.length - 1].parent("#inputFields");
   }
 }
 
@@ -90,12 +102,13 @@ function randomizer() {
 
     clear();
     randomIndex = int(random(superpower.length));
-    text(`${superpower[randomIndex].ability}: \nPower Level: ${superpower[randomIndex].power}`, width/2, height - 80 );
-    image(random(ability), width/2, (height/2) - 10);
+    //text(`${superpower[randomIndex].ability}: \nPower Level: ${superpower[randomIndex].power}`, width / 2, height - 80);
+    image(random(ability), width / 2, (height / 2) - 10);
+    text(superpower[randomIndex], width / 2, height - 80);
     superpower.splice(randomIndex, 1);
   } else {
     background(random(200, 255));
-    text("That's all!", width/2, height/2 );
+    text("That's all!", width / 2, height / 2);
   }
 }
 
@@ -114,6 +127,14 @@ function randomizer() {
 // }
 
 function buttonPressed() {
+
+if(firstTime) {
+  for (let i = 0; i < nameInputs.length; i++)
+  {
+    superpower.push(nameInputs[i].value());
+  }
+  firstTime = false;
+}
 
   animating = true;
   setTimeout(randomizer, 2000);

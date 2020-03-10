@@ -7,6 +7,14 @@ canvas {
 }
 
 .randomizerButton {
-  padding: 50px;
+  padding: 20px;
   background-color: #4dd3ff;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
 }
