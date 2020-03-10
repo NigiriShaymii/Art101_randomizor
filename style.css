@@ -6,6 +6,10 @@ canvas {
   display: block;
 }
 
+input {
+  display: block;
+}
+
 .randomizerButton {
   padding: 20px;
   background-color: #4dd3ff;
