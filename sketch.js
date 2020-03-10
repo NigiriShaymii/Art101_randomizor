@@ -60,7 +60,6 @@ function setup() {
   frameRate(5);
   text("Click to Randomize", width / 2, height / 2);
 
-  //button = createButton("Superpower Randomizer");
   //button.position(width / 4, height); //This puts the button at the bottom instead of the top
   startRandomiozerButton = select('#randButton');
   startRandomiozerButton.mousePressed(buttonPressed);
