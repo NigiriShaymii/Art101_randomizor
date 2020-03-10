@@ -103,7 +103,7 @@ function randomizer() {
     randomIndex = int(random(superpower.length));
     //text(`${superpower[randomIndex].ability}: \nPower Level: ${superpower[randomIndex].power}`, width / 2, height - 80);
     image(random(ability), width / 2, (height / 2) - 10);
-    text(superpower[randomIndex], width / 2, height - 80);
+    text(superpower[randomIndex], width / 2, height - 10);
     superpower.splice(randomIndex, 1);
   } else {
     background(random(200, 255));
