@@ -1,36 +1,36 @@
 //Bunny power
 
-// let superpower = [{
-//   ability: "Heal",
-//   power: 1
-// }, {
-//   ability: "Teleportation",
-//   power: 2
-// }, {
-//   ability: "Wind",
-//   power: 3
-// }, {
-//   ability: "Water",
-//   power: 4
-// }, {
-//   ability: "Earth",
-//   power: 5
-// }, {
-//   ability: "Fire",
-//   power: 6
-// }, {
-//   ability: "Electricity",
-//   power: 7
-// }, {
-//   ability: "Superstrength",
-//   power: 8
-// }, {
-//   ability: "Spirit",
-//   power: 9
-// }, {
-//   ability: "Psychic",
-//   power: 10
-// }];
+let superpower_two = [{
+  ability: "Heal",
+  power: 1
+}, {
+  ability: "Teleportation",
+  power: 2
+}, {
+  ability: "Wind",
+  power: 3
+}, {
+  ability: "Water",
+  power: 4
+}, {
+  ability: "Earth",
+  power: 5
+}, {
+  ability: "Fire",
+  power: 6
+}, {
+  ability: "Electricity",
+  power: 7
+}, {
+  ability: "Superstrength",
+  power: 8
+}, {
+  ability: "Spirit",
+  power: 9
+}, {
+  ability: "Psychic",
+  power: 10
+}];
 
 let superpower = [];
 
@@ -51,14 +51,17 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(500, 500);
+  let cnv = createCanvas(500, 500);
+  cnv.parent("#canvasDiv");
   background(82, 77, 255);
 
   textSize(40);
   textAlign(CENTER);
   imageMode(CENTER);
   frameRate(5);
-  text("Click to Randomize", width / 2, height / 2);
+
+  fill(255);
+  text("What's your \ncombined superpower??", width / 2, height / 2);
 
   //button.position(width / 4, height); //This puts the button at the bottom instead of the top
   startRandomiozerButton = select('#randButton');
@@ -101,12 +104,18 @@ function randomizer() {
 
     clear();
     randomIndex = int(random(superpower.length));
+    randomIndex_two = superpower_two[randomIndex];
     //text(`${superpower[randomIndex].ability}: \nPower Level: ${superpower[randomIndex].power}`, width / 2, height - 80);
     image(random(ability), width / 2, (height / 2) - 10);
-    text(superpower[randomIndex], width / 2, height - 10);
+
+    fill(0);
+    textSize(20);
+    text(`${superpower[randomIndex]}${randomIndex_two.ability}`, width / 2, height - 10);
     superpower.splice(randomIndex, 1);
   } else {
     background(random(200, 255));
+
+    fill(0);
     text("That's all!", width / 2, height / 2);
   }
 }
