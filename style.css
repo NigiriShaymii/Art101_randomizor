@@ -26,6 +26,11 @@ h1 {
   font-size: 50px;
 }
 
+p{
+  font-size: 20px;
+  text-align: center;
+}
+
 .randomizerButton {
   padding: 20px;
   background-color: #4dd3ff;
